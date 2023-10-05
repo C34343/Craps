@@ -8,6 +8,7 @@ cash = 1000
 point = 0
 cashLabel = tk.Label(window, text="")
 potLabel = tk.Label(window, text="")
+rollLabel = tk.Label(window, text="")
 
 label = tk.Label(window, 
                  font=("times", 250), 
@@ -47,6 +48,8 @@ def rollDice():
       lose()
     elif ans == 1:
       win()
+    else:
+      rollMessage("Your point is {}".format(ans))
     point = ans
 
 def win():
@@ -56,11 +59,13 @@ def win():
   pot = 0
   displayCash()
   displayPot()
+  rollMessage("You won!")
     
 def lose():
   global pot
   pot = 0
   displayPot()
+  rollMessage("You lost")
 
 def addToPot():
    global betEntry
@@ -71,7 +76,7 @@ def addToPot():
       pot += betAmount
       cash -= betAmount
    else:
-      print("shut up poor boy")
+      rollMessage("Not enough money")
    displayCash()
    displayPot()
 
@@ -95,6 +100,12 @@ def displayCash():
    text = "Cash: " + str(cash)
    cashLabel = tk.Label(window, text=text)
    cashLabel.place(x=410, y=10)
+  
+def rollMessage(message):
+   global rollLabel
+   rollLabel.destroy()
+   rollLabel = tk.Label(window, text=message, font=('calibre',30,'normal'))
+   rollLabel.place(relx=0.5, rely=0.75, anchor="center")
 
 
 if __name__ == "__main__":
